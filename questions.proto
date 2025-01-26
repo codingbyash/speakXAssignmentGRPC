@@ -1,0 +1,32 @@
+syntax = "proto3";
+
+service QuestionService {
+    rpc GetAll (GetAllRequest) returns (QuestionList) {}
+    rpc Get (QuestionRequestId) returns (Question) {}
+    rpc Insert (Question) returns (Question) {}
+    rpc Update (Question) returns (Question) {}
+    rpc Remove (QuestionRequestId) returns (Empty) {}
+}
+
+message Empty {}
+
+message Question {
+    string id = 1;
+    string title = 2;
+    string description = 3;
+    repeated string tags = 4;
+}
+
+message QuestionList {
+    repeated Question questions = 1;
+    int32 totalCount = 2;  // Total count of questions for pagination
+}
+
+message QuestionRequestId {
+    string id = 1;
+}
+
+message GetAllRequest {
+    int32 page = 1;         // Page number
+    int32 pageSize = 5;     // Number of questions per page
+}
